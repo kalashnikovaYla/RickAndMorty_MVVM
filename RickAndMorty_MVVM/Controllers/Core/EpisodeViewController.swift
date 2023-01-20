@@ -1,5 +1,5 @@
 //
-//  CharacterViewController.swift
+//  EpisodeViewController.swift
 //  RickAndMorty_MVVM
 //
 //  Created by sss on 10.01.2023.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-///Controller to show and search for  characters 
-class CharacterViewController: UIViewController {
+///Controller to show and search for  episode   
+class EpisodeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
