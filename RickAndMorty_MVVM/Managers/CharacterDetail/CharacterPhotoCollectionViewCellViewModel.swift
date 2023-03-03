@@ -21,7 +21,7 @@ final class CharacterPhotoCollectionViewCellViewModel{
             return
             
         }
-        ImageLoader.shared .downloadImage(imageUrl, completion: completion)
+        ImageLoader.shared.downloadImage(imageUrl, completion: completion)
     }
     
 }

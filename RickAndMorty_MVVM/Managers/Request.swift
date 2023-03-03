@@ -14,7 +14,7 @@ final class Request {
         static let baseURL = "https://rickandmortyapi.com/api"
     }
     ///Desired endp oint
-    private let endPoint: EndPoint
+    let endPoint: EndPoint
     ///Path components for API
     private let pathComponents: [String]
     ///Query arguments for API
@@ -51,7 +51,6 @@ final class Request {
     
     ///Computed and constructed API url
     public var url: URL? {
-        print(URL(string: urlString) ?? "nil")
         return URL(string: urlString)
     }
     
@@ -98,7 +97,6 @@ final class Request {
             if !components.isEmpty, components.count >= 2 {
                 let endpointString = components[0]
                 let queryItemsString = components[1]
-                
                 let queryItems: [URLQueryItem] = queryItemsString.components(separatedBy: "&").compactMap({
                     guard $0.contains("=") else {
                         return nil
@@ -122,4 +120,6 @@ final class Request {
 
 extension Request {
     static let listCharactersRequest = Request(endPoint: .character)
+    static let listEpisodesRequest = Request(endPoint: .episode)
+    static let listLocationsRequest = Request(endPoint: .location)
 }

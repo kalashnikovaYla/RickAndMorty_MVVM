@@ -33,7 +33,7 @@ final class CharacterCollectionViewCellViewModel: Hashable, Equatable {
             completion(.failure(URLError(.badURL)))
             return
         }
-        let request = URLRequest(url: url)
+        //let request = URLRequest(url: url)
         ImageLoader.shared.downloadImage(url, completion: completion)
     }
     

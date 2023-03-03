@@ -23,7 +23,6 @@ final class ImageLoader {
     ///  - url: Source url
     ///  - completion: Callback
     func downloadImage(_ url: URL, completion: @escaping (Result<Data, Error>)->Void) {
-        
         let key = url.absoluteString as NSString
         
         if let data = imageDataCache.object(forKey: key) {

@@ -18,12 +18,12 @@ final class CharacterViewController: UIViewController, CharacterViewDelegate {
         
         view.backgroundColor = .systemBackground
         setupView()
+        addSearchButton()
     }
     
     private func setupView() {
         
         characterView.delegate = self
-        
         view.addSubview(characterView)
         
         NSLayoutConstraint.activate([
@@ -33,7 +33,17 @@ final class CharacterViewController: UIViewController, CharacterViewDelegate {
             characterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    private func addSearchButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearch))
+    }
 
+    @objc func didTapSearch() {
+        let vc = SearchViewController(config: .init(type: .character))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     //MARK: CharacterViewDelegate
     
     func characterView(_ characterView: CharacterView, didSelectedCharacter character: Character) {

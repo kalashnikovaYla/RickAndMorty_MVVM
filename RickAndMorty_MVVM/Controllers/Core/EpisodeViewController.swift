@@ -8,23 +8,51 @@
 import UIKit
 
 ///Controller to show and search for  episode   
-class EpisodeViewController: UIViewController {
-
+class EpisodeViewController: UIViewController, EpisodeListViewDelegate {
+    
+    private let episodeListView = EpisodeListView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        view.backgroundColor = .systemBackground
+        title = "Episodes"
+        setupView()
+        addSearchButton()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupView() {
+        
+        episodeListView.delegate = self
+        
+        view.addSubview(episodeListView)
+        
+        NSLayoutConstraint.activate([
+            episodeListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            episodeListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            episodeListView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            episodeListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
-    */
+
+    //MARK: EpisodeListViewDelegate
+    
+    func episodeView(_ episodeView: EpisodeListView, didSelectedEpisode episode: Episode) {
+        //Open detail controller for that episode
+        
+        let detailVC = EpisodeDetailViewController(url: URL(string: episode.url))
+        detailVC.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    private func addSearchButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearch))
+    }
+
+    @objc func didTapSearch() {
+        let vc = SearchViewController(config: .init(type: .episode))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
 }

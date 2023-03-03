@@ -46,7 +46,7 @@ final class  CharacterViewModel: NSObject {
             switch result {
             case .success(let responseModel):
                 let results = responseModel.results
-                let info = responseModel.info
+               
                 self?.apiInfo = responseModel.info
                 self?.characters = results
                 
@@ -61,7 +61,6 @@ final class  CharacterViewModel: NSObject {
     
     ///Paginated if additional characters are needed
     public func fetchAdditionalCharacters(url: URL) {
-       
         guard !isLoadingMoreCharacters else {
             return
         }
@@ -69,7 +68,6 @@ final class  CharacterViewModel: NSObject {
        
         guard let request = Request(url: url) else {
             isLoadingMoreCharacters = false
-            print("Failed to create request")
             return
         }
         NetworkService.shared.execute(request, expecting: GetCharactersResponse.self) { [weak self] result in
@@ -128,7 +126,7 @@ extension CharacterViewModel: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-       
+        
         let bounds = UIScreen.main.bounds
         let width = (bounds.width - 30)/2
         return CGSize(
@@ -179,12 +177,13 @@ extension CharacterViewModel: UIScrollViewDelegate {
               let nextUrlString = apiInfo?.next, let url = URL(string: nextUrlString)
         else {return }
         
+        
         Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
             // Собираемся вычислить, находимся ли мы внизу
+
             let offset = scrollView.contentOffset.y
             let totalContentHeight = scrollView.contentSize.height
             let totalScrollViewFixedHeight = scrollView.frame.size.height
-            
             if offset >= (totalContentHeight - totalScrollViewFixedHeight - 120) {
                 self?.fetchAdditionalCharacters(url: url)
             }
