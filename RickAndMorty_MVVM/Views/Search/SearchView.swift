@@ -47,6 +47,10 @@ final class SearchView: UIView {
             self.searchInputView.update(option: tuple.0, value: tuple.1)
         }
         
+        viewModel.registerSearchResultHandler { result in
+            print(result)
+        }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -98,6 +102,14 @@ extension SearchView: UICollectionViewDelegate, UICollectionViewDataSource {
 //MARK: - SearchInputViewDelegate
 
 extension SearchView: SearchInputViewDelegate {
+    
+    func searchInputViewDidTapSearchKeyboardButton(_ inputView: SearchInputView) {
+        viewModel.executeSearch()
+    }
+    
+    func searchInputView(_ inputView: SearchInputView, didChangeSearchText text: String) {
+        viewModel.set(query: text)
+    }
     
     func searchInputView(_ inputView: SearchInputView, didSelectOption option: SearchInputViewModel.DynamicOption) {
         delegate?.searchView(self, didSelectOption: option)

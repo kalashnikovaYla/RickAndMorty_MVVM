@@ -23,6 +23,7 @@ final class SearchViewController: UIViewController {
             case location //name, type
             case episode // name
             
+            
             var title: String {
                 switch self {
                 case .character:

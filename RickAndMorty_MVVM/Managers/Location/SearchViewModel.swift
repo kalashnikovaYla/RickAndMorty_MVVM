@@ -19,7 +19,7 @@ final class SearchViewModel {
     private var optionMap: [SearchInputViewModel.DynamicOption: String] = [:]
      
     private var optionMapUpdateBlock: (((SearchInputViewModel.DynamicOption, String)) -> Void)?
-    private var searchResultHandler: (() -> Void)?
+    private var searchResultHandler: ((SearchResultViewModel) -> Void)?
     
     private var searchText = ""
     
@@ -31,14 +31,13 @@ final class SearchViewModel {
     
     //MARK: - Public
     
-    public func registerSearchResultHandler(_ block: @escaping () -> Void) {
+    public func registerSearchResultHandler(_ block: @escaping (SearchResultViewModel) -> Void) {
         self.searchResultHandler = block
     }
     
     public func set(query text: String) {
         self.searchText = text
     }
-    
     
     public func set(value: String, for option: SearchInputViewModel.DynamicOption) {
         optionMap[option] = value
@@ -56,12 +55,13 @@ final class SearchViewModel {
         //Notify view of results, no results or error
         
 
+        print("Search \(searchText)")
         // Test search text
-        searchText = "Rick"
+        
 
         // Build arguments
         var queryParams: [URLQueryItem] = [
-            URLQueryItem(name: "name", value: searchText)
+            URLQueryItem(name: "name", value: searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
         ]
         
         // Add options
@@ -77,17 +77,61 @@ final class SearchViewModel {
         queryParameters: queryParams
         )
 
-        print(request.url?.absoluteString)
-
-        NetworkService.shared.execute(request, expecting: GetCharactersResponse.self) { result in
+        switch config.type.endpoint {
+        case .character:
+            makeSearchApiCall(GetCharactersResponse.self, request: request)
+        case .episode:
+            makeSearchApiCall(GetEpisodesResponse.self, request: request)
+        case .location:
+            makeSearchApiCall(GetLocationResponse.self, request: request)
+        }
+        
+    }
+    
+    private func makeSearchApiCall<T: Codable>(_ type: T.Type, request: Request) {
+        NetworkService.shared.execute(request, expecting: type) { [weak self] result in
         
             // Notify view of results, no results, or error
             switch result {
             case .success(let model):
-                print("Search results found: \(model.results.count)")
+                
+                //Episodes, Characters - Collection View, Location - tableView
+                
+                self?.processSearchResult(model: model)
             case .failure:
                 break
             }
+        }
+    }
+    
+    private func processSearchResult(model: Codable) {
+        
+        var resultsVM: SearchResultViewModel?
+        
+        if let characterResults = model as? GetCharactersResponse {
+            resultsVM = .characters(characterResults.results.compactMap({
+                
+                return CharacterCollectionViewCellViewModel(characterName: $0.name,
+                                                            characterStatus: $0.status,
+                                                            characterImageUrl: URL(string: $0.url))
+            }))
+            
+        } else if let episodeResults = model as? GetEpisodesResponse {
+            resultsVM = .episodes(episodeResults.results.compactMap({
+                return CharacterEpisodeCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url))
+            }))
+            
+        } else if let locationsResults = model as? GetLocationResponse {
+            resultsVM = .locations(locationsResults.results.compactMap({
+                return LocationTableViewCellViewModel(location: $0)
+            }))
+            
+        }
+        
+        if let results = resultsVM {
+            self.searchResultHandler?(results)
+        } else {
+            
         }
     }
 }
