@@ -21,6 +21,8 @@ final class SearchViewModel {
     private var optionMapUpdateBlock: (((SearchInputViewModel.DynamicOption, String)) -> Void)?
     private var searchResultHandler: ((SearchResultViewModel) -> Void)?
     
+    private var noResultsHandler: (() -> Void)?
+    
     private var searchText = ""
     
     //MARK: - Init
@@ -33,6 +35,10 @@ final class SearchViewModel {
     
     public func registerSearchResultHandler(_ block: @escaping (SearchResultViewModel) -> Void) {
         self.searchResultHandler = block
+    }
+    
+    public func registerNoResultsHandler(_ block: @escaping() -> Void) {
+        self.noResultsHandler = block
     }
     
     public func set(query text: String) {
@@ -98,7 +104,9 @@ final class SearchViewModel {
                 //Episodes, Characters - Collection View, Location - tableView
                 
                 self?.processSearchResult(model: model)
+                
             case .failure:
+                self?.handleNoResults()
                 break
             }
         }
@@ -131,7 +139,11 @@ final class SearchViewModel {
         if let results = resultsVM {
             self.searchResultHandler?(results)
         } else {
-            
+            handleNoResults()
         }
+    }
+    
+    private func handleNoResults() {
+        noResultsHandler?()
     }
 }

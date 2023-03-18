@@ -11,6 +11,7 @@
 		180E643F296EE91D0082A18E /* GetCharactersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180E643E296EE91D0082A18E /* GetCharactersResponse.swift */; };
 		1821EFC9298062A80073A0AB /* EpisodeInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821EFC8298062A80073A0AB /* EpisodeInfoCollectionViewCell.swift */; };
 		1821EFCC298063070073A0AB /* EpisodeInfoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821EFCB298063070073A0AB /* EpisodeInfoCollectionViewCellViewModel.swift */; };
+		182A74C729C646FF00E6A239 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182A74C629C646FF00E6A239 /* SearchResultView.swift */; };
 		1857D44A297D241B007361F0 /* APICacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857D449297D241B007361F0 /* APICacheManager.swift */; };
 		1857D44E297D2F6C007361F0 /* EpisodeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857D44D297D2F6C007361F0 /* EpisodeDetailViewModel.swift */; };
 		1857D450297D31E3007361F0 /* EpisodeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1857D44F297D31E3007361F0 /* EpisodeDetailView.swift */; };
@@ -70,6 +71,7 @@
 		180E643E296EE91D0082A18E /* GetCharactersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCharactersResponse.swift; sourceTree = "<group>"; };
 		1821EFC8298062A80073A0AB /* EpisodeInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeInfoCollectionViewCell.swift; sourceTree = "<group>"; };
 		1821EFCB298063070073A0AB /* EpisodeInfoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeInfoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		182A74C629C646FF00E6A239 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		1857D449297D241B007361F0 /* APICacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICacheManager.swift; sourceTree = "<group>"; };
 		1857D44D297D2F6C007361F0 /* EpisodeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailViewModel.swift; sourceTree = "<group>"; };
 		1857D44F297D31E3007361F0 /* EpisodeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailView.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				18732477298AD84900C9A4D6 /* SearchView.swift */,
 				1873247C298ADC7200C9A4D6 /* NoSearchResultsView.swift */,
 				18732480298ADD5E00C9A4D6 /* SearchInputView.swift */,
+				182A74C629C646FF00E6A239 /* SearchResultView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				18F0D4D929732C340055DC7F /* FooterLoadingCollectionReusableView.swift in Sources */,
 				1857D453297D356E007361F0 /* EpisodeListView.swift in Sources */,
 				1877DB682971965D00E753C2 /* CharacterViewModel.swift in Sources */,
+				182A74C729C646FF00E6A239 /* SearchResultView.swift in Sources */,
 				1877DB6C2971A23400E753C2 /* Extensions.swift in Sources */,
 				18060C6329744863008ED61E /* ImageLoader.swift in Sources */,
 				1867301A296DE764009FE56E /* Episode.swift in Sources */,
