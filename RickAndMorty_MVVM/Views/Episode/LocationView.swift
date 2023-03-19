@@ -59,12 +59,15 @@ final class LocationView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         backgroundColor = .systemBackground
         translatesAutoresizingMaskIntoConstraints = false
         addSubviews(tableView, spinner)
         spinner.startAnimating()
         addConstraints()
         configureTableView()
+        
+        
     }
     
     required init?(coder: NSCoder) {
