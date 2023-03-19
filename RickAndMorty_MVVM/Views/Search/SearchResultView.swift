@@ -37,12 +37,16 @@ final class SearchResultView: UIView {
             layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
 
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
             collectionView.isHidden = true
+        
             collectionView.translatesAutoresizingMaskIntoConstraints = false
             collectionView.register(CharacterCollectionViewCell.self,
                                     forCellWithReuseIdentifier: CharacterCollectionViewCell.cellIdentifier)
+        
             collectionView.register(CharacterEpisodeCollectionViewCell.self,
                                     forCellWithReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIdentifier)
+         
             collectionView.register(FooterLoadingCollectionReusableView.self,
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                     withReuseIdentifier: FooterLoadingCollectionReusableView.identifier)
@@ -156,6 +160,7 @@ extension SearchResultView: UICollectionViewDelegate, UICollectionViewDataSource
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let currentViewModel = collectionViewCellViewModels[indexPath.row]
         if let characterVM = currentViewModel as? CharacterCollectionViewCellViewModel {
             // Character cell
@@ -190,6 +195,7 @@ extension SearchResultView: UICollectionViewDelegate, UICollectionViewDataSource
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let currentViewModel = collectionViewCellViewModels[indexPath.row]
 
         let bounds = collectionView.bounds
