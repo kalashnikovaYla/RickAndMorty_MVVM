@@ -114,5 +114,10 @@ extension SearchViewController: SearchViewDelegate {
         vc.sheetPresentationController?.prefersGrabberVisible = true 
         present(vc, animated: true)
     }
+    
+    func searchView(_ searchView: SearchView, didSelectLocation location: Location) {
+        let vc = LocationDetailViewController(location: location)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
 }

@@ -25,6 +25,8 @@ final class SearchViewModel {
     
     private var searchText = ""
     
+    private var searchResultModel: Codable?
+    
     //MARK: - Init
     
     init(config: SearchViewController.Config) {
@@ -137,6 +139,7 @@ final class SearchViewModel {
         }
         
         if let results = resultsVM {
+            self.searchResultModel = model
             self.searchResultHandler?(results)
         } else {
             handleNoResults()
@@ -145,5 +148,12 @@ final class SearchViewModel {
     
     private func handleNoResults() {
         noResultsHandler?()
+    }
+    
+    public func locationSearchResult(at index: Int) -> Location? {
+        guard let searchModel = searchResultModel as? GetLocationResponse else {
+            return nil
+        }
+        return searchModel.results[index]
     }
 }
